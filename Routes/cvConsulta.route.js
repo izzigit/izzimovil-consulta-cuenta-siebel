@@ -1,8 +1,15 @@
-import {Router} from 'express'
-import { accountSearch } from '../Controller/cvConsulta.controller.js';
+import { Router } from "express";
+import { accountSearch } from "../Controller/cvConsulta.controller.js";
 
-const router = Router()
+const router = Router();
 
-router.post('/', accountSearch);
+router.get("/healthCheck", (req, res) => {
+  return res.json({
+    api: "v1",
+    status: "up",
+  });
+});
+
+router.post("/consultaCuenta", accountSearch);
 
 export default router;
