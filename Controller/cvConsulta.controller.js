@@ -11,9 +11,9 @@ export const accountSearch = async (req, res) => {
     if (cvConsulta.phoneNumber.length < 10 && cvConsulta.account < 8)
       throw { status: 400, message: "parametros invalidos" };
 
-    const res = await clientConsulta(cvConsulta.getXML())
+    const result = await clientConsulta(cvConsulta)
 
-    return res.status(200).json({ resp });
+    return res.status(200).json({ result });
   } catch (error) {
     return res.status(error.status).json({ error: error.message });
   }

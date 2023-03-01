@@ -1,26 +1,31 @@
-import axios from "axios"
+import { soap } from "strong-soap";
 
-export const clientConsulta = async (payload) => {
+const url = "./Wsdls/http___siebel.com_CustomUI_CV.wsdl";
 
-  const config = {
-    method: 'post',
-    maxBodyLength: Infinity,
-    url: 'https://test.izziapiweb.mx/vpn/siebel/app/eai/ESN',
-    headers: { 
-      'Content-Type': 'text/xml'
-    },
-    data : payload
-  };
-  
-  console.log("request: \n",payload);
-  await axios(config)
-  .then(function (response) {
-    return response;
-  })
-  .catch(function (error) {
-    if(error.message === "Request failed with status code 500")
-    throw {status:500, message:"En estos momentos presentamos errores en nuestros sistemas"}
-    
-    throw {status:402, message:error.message}
+const getSoapResponse = async (request)=>{
+  return await soap.createClient(url, {}, async function (err, client) {
+    var method = client["CVConsultaStatusCuenta"];
+    return await method(request, function (err, result, envelope, soapHeader) {
+      //response envelope
+      console.log("Response Envelope: \n" + envelope);
+      //'result' is the response body
+      console.log("Result: \n" + JSON.stringify(result));
+      return result
+    });
   });
 }
+
+export const clientConsulta = async (payload) => {
+  console.log("REQUEST: \n", payload.getXML());
+
+  var requestArgs = {
+    CVConsultaStatusCuenta_Input: {
+      CV_spcTelefono: payload.phoneNumber,
+      CV_spcCuenta: payload.account,
+    },
+  };
+
+  const response = await getSoapResponse(requestArgs);
+
+  return response;
+};
