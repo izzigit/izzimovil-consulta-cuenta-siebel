@@ -15,6 +15,9 @@ export const accountSearch = async (req, res) => {
 
     return res.status(200).json({ result });
   } catch (error) {
-    return res.status(error.status).json({ error: error.message });
+    if(error.status)
+      return res.status(error.status).json({ error: error.message });
+    
+    return res.status(500).json({error:error.message})
   }
 };

@@ -21,15 +21,3 @@ export class cVConsultaStatus {
   }
 
 }
-
-export const cVConsultaStatusCuenta = {
-  account:"",
-  phoneNumber:"",
-  getXML:function() {
-    
-  },
-  create: function(a){
-    this.account = a.account;
-    this.phoneNumber = a.phoneNumber
-  }
-}
