@@ -19,7 +19,7 @@ app.use(
 );
 
 app.use(express.json());
-app.use("/cvSiebel/v1", siebelRouter);
+app.use("/cvAccountSiebel/v1", siebelRouter);
 
 const PORT = process.env.PORT || 8898;
 app.listen(PORT, () => {

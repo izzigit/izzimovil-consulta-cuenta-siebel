@@ -10,6 +10,7 @@ router.get("/healthCheck", (req, res) => {
   });
 });
 
-router.post("/consultaCuenta", accountSearch);
+router.post("/accountSearch", accountSearch);
+router.post("/accountsByNumber", accountSearch);
 
 export default router;

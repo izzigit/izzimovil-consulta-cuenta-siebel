@@ -8,7 +8,7 @@ export const accountSearch = async (req, res) => {
     if (!cvConsulta.account && !cvConsulta.phoneNumber)
       throw { status: 400, message: "parametros vacios" };
 
-    if (cvConsulta.phoneNumber.length < 10 && cvConsulta.account < 8)
+    if (cvConsulta.phoneNumber < 10 && cvConsulta.account < 8)
       throw { status: 400, message: "parametros invalidos" };
 
     const result = await clientConsulta(cvConsulta)
